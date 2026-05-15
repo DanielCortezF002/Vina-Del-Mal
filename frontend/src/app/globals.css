@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --vdm-primary: #8B0000;
+    --vdm-secondary: #D4AF37;
+    --vdm-accent: #C41E3A;
+    --vdm-dark: #0F0F0F;
+    --vdm-surface: #1A1A1A;
+    --vdm-text-primary: #F5F5F5;
+    --vdm-text-muted: #A0A0A0;
+
+    --background: var(--vdm-dark);
+    --foreground: var(--vdm-text-primary);
+    
+    --card: var(--vdm-surface);
+    --card-foreground: var(--vdm-text-primary);
+    
+    --popover: var(--vdm-surface);
+    --popover-foreground: var(--vdm-text-primary);
+    
+    --primary: var(--vdm-primary);
+    --primary-foreground: var(--vdm-text-primary);
+    
+    --secondary: var(--vdm-secondary);
+    --secondary-foreground: var(--vdm-dark);
+    
+    --muted: var(--vdm-surface);
+    --muted-foreground: var(--vdm-text-muted);
+    
+    --accent: var(--vdm-accent);
+    --accent-foreground: var(--vdm-text-primary);
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: var(--vdm-primary);
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}

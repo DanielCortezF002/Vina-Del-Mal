@@ -1,0 +1,126 @@
+I LIVE.
+Autor: Daniel Cortez | Estudiante de Ingeniería en Computación e Informática - UNAB
+Investigadora Asociada: Giannina Costa | Facultad de Ingeniería 
+1. Resumen Ejecutivo
+I LIVE.  es una solución disruptiva de HealthTech  y SocialTech  diseñada para abordar la brecha
+crítica en la salud mental de las generaciones nativas digitales (Z y Alpha). El proyecto utiliza un
+enfoque de "Espejo Digital" donde un avatar 3D en un entorno dinámico actúa como una
+representación proactiva del estado emocional y físico del usuario. 
+A través de la integración de Inteligencia Artificial, Procesamiento de Lenguaje Natural (NLP) y
+mecánicas de gamificación de alto impacto, la plataforma permite a los usuarios que presentan
+resistencia a la terapia tradicional observar sus problemas desde una perspectiva externa
+(metacognición), facilitando el autodescubrimiento y la detección temprana de crisis. 
+2. Contextualización de la Problemática
+2.1 El Problema Raíz
+Existe una desconexión fundamental entre los métodos de salud mental convencionales y las
+necesidades de las nuevas generaciones. El estigma, el alto costo y la naturaleza estática de
+las terapias actuales alejan a los jóvenes, quienes enfrentan niveles crecientes de depresión,
+ansiedad y soledad. 
+Impacto Global:  Se estima que más de 300 millones de personas sufren depresión a nivel
+mundial, con una tasa de acceso a tratamiento inferior al 50% en zonas en desarrollo. 
+2.2 Consecuencias de la Inacción
+Inmediatas:  Deterioro de la higiene mental, aislamiento social y abandono de metas
+cotidianas.
+A largo plazo:  Cronificación de trastornos mentales y aumento drástico del riesgo de
+conductas autolesivas al carecer de una red de apoyo constante.
+Ecosistema de Acompañamiento por Reflejo | Dossier Integral de Proyecto• 
+• 
+Página 1
+3. Especificaciones Funcionales (Surgical Breakdown)
+El sistema se estructura bajo una lógica de "Reflejo Activo" que desglosa la vida del usuario en
+componentes digitales interactivos:
+Módulo Funcionalidad "Surgical" Impacto Psicológico
+Avatar "Espejo" Representación 3D que ajusta expresiones,
+postura y tono de voz según los sentiment
+scores obtenidos vía NLP.Metacognición: El usuario desarrolla
+empatía hacia sí mismo al ver a su avatar
+decaído o radiante.
+Ciclo Circadiano Sincronización del entorno (mañana, tarde,
+noche) con la hora real y el ciclo de sueño
+del usuario.Validación Temporal: Refuerza la
+conexión entre la vida digital y el ritmo
+biológico real.
+Inventario
+Minecraft-StyleGestión de objetivos, objetos legales y hitos
+físicos (peso, altura, condiciones) como
+ítems de juego.Gamificación de la Gestión: Transforma
+el cuidado personal en un proceso de
+desarrollo de personaje.
+Módulo
+RelacionalCreación de avatares de soporte (familiares,
+amigos, mascotas) para mapear dinámicas
+sociales.Reconocimiento de Patrones: Identifica
+conflictos o redes de apoyo mediante
+algoritmos de IA.
+Viñetas de
+PensamientoBurbujas de texto automáticas que
+proyectan pensamientos probables del
+usuario basados en sus logs.Conciencia Proactiva: Actúa como una
+voz de conciencia que ayuda a procesar
+frustraciones o duelos.
+4. Arquitectura Técnica y Stack Tecnológico
+Como proyecto de ingeniería de último año, I LIVE.  utiliza un stack robusto diseñado para la
+escalabilidad y el procesamiento de datos sensibles.
+4.1 El Stack
+Frontend / Interfaz:  Flutter o React Native para una experiencia móvil fluida y
+multiplataforma.
+Motor Gráfico:  Unity (integrado mediante vistas nativas) para el renderizado del avatar 3D y
+entorno dinámico.
+Backend:  Node.js / FastAPI para la gestión de solicitudes y lógica de negocio.
+Base de Datos:  PostgreSQL para datos estructurados y Redis para caché de estados
+emocionales en tiempo real.• 
+• 
+• 
+• 
+Página 2
+IA / NLP:  Modelos LLM (vía API de OpenAI o Claude) especializados en análisis de
+sentimiento y generación de insights terapéuticos.
+4.2 Lógica del Algoritmo (NLP Pipeline)
+[INPUT: Texto del usuario] -> [Análisis de Sentimiento (Valence/Arousal)] -> 
+[Detección de Entidades y Objetivos] -> [Mapping a Blend Trees de Animación] -> 
+[OUTPUT: Cambio de expresión en el Avatar + Generación de Viñeta] 
+5. Modelo de Negocio y Marketplace (LIFE)
+El proyecto se divide en dos capas para asegurar la sostenibilidad y el valor profesional:
+I LIVE. (Versión Base)
+Enfoque gratuito de journaling  y
+acompañamiento básico. Monetización vía
+personalización estética (estilo Sims) y
+funciones premium de analítica. LIFE (Versión Pro / Marketplace)
+Plataforma de suscripción que conecta a
+usuarios con psicólogos recién egresados.
+El profesional supervisa los modelos de ML
+para un RLHF (Reinforcement Learning from
+Human Feedback) clínico. 
+5.1 Valor para el Profesional
+Los psicólogos utilizan la plataforma para generar ingresos rápidos mientras ganan experiencia,
+actuando como "supervisores de IA" que retroalimentan el modelo según el progreso real del
+paciente, optimizando así la intervención psicológica mediante datos objetivos del avatar. 
+6. Blindaje Ético y Seguridad
+Dada la sensibilidad de los datos, el proyecto implementa un marco de seguridad de grado
+clínico:
+Privacy by Design:  Encriptación de extremo a extremo (E2EE) en el diario de vida.
+Soberanía del Dato:  El usuario es el único responsable y dueño de la información
+compartida, con protocolos de borrado total verificable.
+Detección de Riesgo:  Algoritmos entrenados para identificar keywords  de ideación suicida
+o riesgo inminente, activando un protocolo de derivación automática a líneas de ayuda
+locales.• 
+• 
+• 
+• 
+Página 3
+7. Roadmap de Implementación
+Fase 1 (MVP):  Desarrollo del núcleo NLP y sincronización de estados básicos de ánimo en
+el avatar Unity.
+Fase 2 (Validación):  Piloto con grupo de control universitario para medir engagement  y
+precisión del reflejo.
+Fase 3 (Marketplace):  Lanzamiento de la versión LIFE con integración de perfiles
+profesionales y sistema de pagos.
+Fase 4 (Escalabilidad):  Integración con wearables  para sincronizar datos físicos (sueño/
+pasos) automáticamente.
+Este documento constituye la base técnica y conceptual del proyecto "I LIVE." para la postulación a becas de innovación (Endowment) y
+movilidad internacional (Boston Trip).
+© 2026 Daniel Cortez - Proyecto de Título Ingeniería Civil Informática UNAB. 1. 
+2. 
+3. 
+4. 
+Página 4
