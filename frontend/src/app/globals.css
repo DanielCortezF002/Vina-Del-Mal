@@ -2,56 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * Design tokens de Viña del Mal.
+ * REGLA: Todos los colores de la marca se definen aquí como CSS custom properties
+ * y se consumen vía tailwind.config.ts. NUNCA hardcodear hex en componentes.
+ *
+ * Los tokens `--border`, `--input`, `--destructive` y `--destructive-foreground`
+ * usan formato "H S% L%" (sin hsl()) porque Tailwind los consume con el wrapper
+ * hsl() en tailwind.config.ts. El resto de tokens son valores directos.
+ */
 @layer base {
   :root {
-    --vdm-primary: #8B0000;
-    --vdm-secondary: #D4AF37;
-    --vdm-accent: #C41E3A;
-    --vdm-dark: #0F0F0F;
-    --vdm-surface: #1A1A1A;
-    --vdm-text-primary: #F5F5F5;
-    --vdm-text-muted: #A0A0A0;
+    /* ── Paleta VDM ──────────────────────────────────────── */
+    --vdm-primary:      #8B0000;   /* Sangre de toro — CTA principal  */
+    --vdm-secondary:    #D4AF37;   /* Dorado envejecido — headings     */
+    --vdm-accent:       #C41E3A;   /* Crimson — hover states           */
+    --vdm-dark:         #0F0F0F;   /* Fondo base — casi negro          */
+    --vdm-surface:      #1A1A1A;   /* Cards, modals                    */
+    --vdm-text-primary: #F5F5F5;   /* Texto principal                  */
+    --vdm-text-muted:   #A0A0A0;   /* Texto secundario / subtítulos    */
 
-    --background: var(--vdm-dark);
-    --foreground: var(--vdm-text-primary);
-    
-    --card: var(--vdm-surface);
-    --card-foreground: var(--vdm-text-primary);
-    
-    --popover: var(--vdm-surface);
-    --popover-foreground: var(--vdm-text-primary);
-    
-    --primary: var(--vdm-primary);
-    --primary-foreground: var(--vdm-text-primary);
-    
-    --secondary: var(--vdm-secondary);
-    --secondary-foreground: var(--vdm-dark);
-    
-    --muted: var(--vdm-surface);
-    --muted-foreground: var(--vdm-text-muted);
-    
-    --accent: var(--vdm-accent);
-    --accent-foreground: var(--vdm-text-primary);
-    
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    /* ── Aliases shadcn/ui (consumen los tokens VDM) ────── */
+    --background:               var(--vdm-dark);
+    --foreground:               var(--vdm-text-primary);
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: var(--vdm-primary);
+    --card:                     var(--vdm-surface);
+    --card-foreground:          var(--vdm-text-primary);
 
-    --radius: 0.5rem;
+    --popover:                  var(--vdm-surface);
+    --popover-foreground:       var(--vdm-text-primary);
+
+    --primary:                  var(--vdm-primary);
+    --primary-foreground:       var(--vdm-text-primary);
+
+    --secondary:                var(--vdm-secondary);
+    --secondary-foreground:     var(--vdm-dark);
+
+    --muted:                    var(--vdm-surface);
+    --muted-foreground:         var(--vdm-text-muted);
+
+    --accent:                   var(--vdm-accent);
+    --accent-foreground:        var(--vdm-text-primary);
+
+    --ring:                     var(--vdm-primary);
+    --radius:                   0.5rem;
+
+    /* ── Tokens en formato HSL raw (para consumo con hsl() en Tailwind) ── */
+    --border:                   240 3.7% 15.9%;
+    --input:                    240 3.7% 15.9%;
+    --destructive:              0 62.8% 30.6%;
+    --destructive-foreground:   210 40% 98%;
   }
 }
 
+/* ── Estilos base globales ─────────────────────────────────────────────────── */
 @layer base {
-  * {
-    @apply border-border;
+  *,
+  *::before,
+  *::after {
+    @apply border-border box-border;
   }
+
+  html {
+    @apply scroll-smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans min-h-screen;
   }
+
+  /* Headings heredan Playfair Display */
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
+  }
+
+  /* Eliminar outline nativo; lo manejamos con focus-visible en cada componente */
+  :focus:not(:focus-visible) {
+    outline: none;
   }
 }
