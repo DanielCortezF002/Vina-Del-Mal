@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import AgeVerificationModal from "@/components/AgeVerificationModal";
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
@@ -19,7 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={cn("dark", inter.variable, playfair.variable)}>
-      <body className="antialiased min-h-screen bg-background text-foreground font-sans">
+      <body className="antialiased min-h-screen bg-background text-foreground font-sans pt-20">
+        <Header />
         {children}
         <AgeVerificationModal />
       </body>

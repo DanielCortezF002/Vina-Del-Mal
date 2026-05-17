@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from api.v1.products import router as products_router
 
 app = FastAPI(title="Viña del Mal API", version="1.0.0")
 
@@ -11,6 +12,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(products_router, prefix="/api/v1/products", tags=["Products"])
 
 @app.get("/health")
 def health_check():
