@@ -6,12 +6,14 @@ import { useCartStore } from '@/store/useCartStore';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SearchBar from '@/components/SearchBar';
+import CartSidebar from '@/components/CartSidebar';
 
 export default function Header() {
   const getTotalItems = useCartStore((state) => state.getTotalItems);
   const [mounted, setMounted] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -58,8 +60,8 @@ export default function Header() {
             </button>
 
             {/* Cart */}
-            <Link
-              href="/carrito"
+            <button
+              onClick={() => setCartOpen(true)}
               className="p-2 relative rounded-lg hover:bg-white/10 hover:text-vdm-primary transition-colors"
               aria-label="Ver carrito"
             >
@@ -69,7 +71,7 @@ export default function Header() {
                   {getTotalItems()}
                 </span>
               )}
-            </Link>
+            </button>
 
             {/* Mobile menu toggle */}
             <button
@@ -145,6 +147,9 @@ export default function Header() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* ─── Cart Sidebar (CART-2) ─── */}
+      <CartSidebar isOpen={cartOpen} onClose={() => setCartOpen(false)} />
     </>
   );
 }
