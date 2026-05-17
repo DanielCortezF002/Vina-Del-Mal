@@ -1,3 +1,42 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "prettier"
+  ],
+  "rules": {
+    // ── TypeScript strict ────────────────────────────────────────────────────
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+    "@typescript-eslint/consistent-type-imports": ["error", { "prefer": "type-imports" }],
+    "@typescript-eslint/no-non-null-assertion": "warn",
+
+    // ── React Hooks ──────────────────────────────────────────────────────────
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+
+    // ── Next.js App Router ───────────────────────────────────────────────────
+    "@next/next/no-html-link-for-pages": "error",
+    "@next/next/no-img-element": "error",   // Forzar next/image (Cloudinary)
+
+    // ── Generales ────────────────────────────────────────────────────────────
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "prefer-const": "error",
+    "no-var": "error",
+    "eqeqeq": ["error", "always"],
+    "no-eval": "error",                     // Agente 8: SAST — eval prohibido
+    "no-implied-eval": "error",
+
+    // ── Seguridad XSS ────────────────────────────────────────────────────────
+    "react/no-danger": "error"              // Agente 8: dangerouslySetInnerHTML bloqueado
+  },
+  "overrides": [
+    {
+      // Archivos de configuración y scripts pueden usar console
+      "files": ["*.config.ts", "*.config.mjs", "*.config.js"],
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ]
 }

@@ -1,1 +1,62 @@
+#!/bin/sh
+# Agente 2 — Detector de Secretos (pre-commit)
+# Verifica que no se suban API keys ni tokens al repositorio.
+# Patrones detectados: Cloudinary, Supabase, Flow API, JWT, Redis.
+
+echo "🔍 Agente 2: Escaneando secretos en archivos staged..."
+
+# Lista de patrones que NUNCA deben existir en código commiteado
+PATTERNS=(
+  "CLOUDINARY_API_SECRET=[^<]"
+  "SUPABASE_SERVICE_KEY=[^<]"
+  "SUPABASE_SERVICE_ROLE_KEY=[^<]"
+  "FLOW_SECRET=[^<]"
+  "sk_live_"
+  "sk_test_[a-zA-Z0-9]{20}"
+  "eyJhbGciOiJIUzI1NiJ9\."
+)
+
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -v "^\.env\.example$")
+FOUND=0
+
+for pattern in "${PATTERNS[@]}"; do
+  MATCH=$(git diff --cached | grep -E "^\+.*${pattern}" 2>/dev/null)
+  if [ -n "$MATCH" ]; then
+    echo ""
+    echo "❌ AGENTE 2 — SECRETO DETECTADO"
+    echo "   Patrón: $pattern"
+    echo "   Usa variables de entorno en .env.local (nunca en el código)"
+    echo "   Archivo .env.local está en .gitignore y es seguro"
+    FOUND=1
+  fi
+done
+
+if [ $FOUND -ne 0 ]; then
+  echo ""
+  echo "🚨 Commit bloqueado. Elimina los secretos del código antes de continuar."
+  exit 1
+fi
+
+echo "✅ Sin secretos detectados."
+
+# Agente 1 — Linter Estricto (Frontend)
+echo ""
+echo "🔍 Agente 1: Ejecutando lint-staged (Frontend)..."
 npx lint-staged
+
+# Agente 1b — Formatters (Backend)
+echo ""
+echo "🔍 Agente 1b: Ejecutando Black e isort (Backend)..."
+PYTHON_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "\.py$" || true)
+if [ -n "$PYTHON_FILES" ]; then
+  # Run black and isort on the staged python files
+  # Assuming they are installed in the environment or globally
+  # If not available, we skip with a warning
+  if command -v black >/dev/null 2>&1 && command -v isort >/dev/null 2>&1; then
+    black $PYTHON_FILES
+    isort $PYTHON_FILES
+    git add $PYTHON_FILES
+  else
+    echo "⚠️  Black o isort no encontrados. Omitiendo formateo de backend."
+  fi
+fi
