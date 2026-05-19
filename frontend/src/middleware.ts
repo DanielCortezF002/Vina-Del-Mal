@@ -1,13 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// Routes that require age verification
-const PROTECTED_ROUTES = ['/catalogo', '/checkout', '/cocteles'];
-// Routes that require admin role (future JWT validation)
-const _ADMIN_ROUTES = ['/admin'];
-
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
   const response = NextResponse.next();
 
   // ── 1. Extract tenant from subdomain (multi-tenant support) ──
@@ -27,27 +21,18 @@ export function middleware(request: NextRequest) {
   // Inject tenant header for Server Components / API routes
   response.headers.set('x-tenant-slug', tenantSlug);
 
-  // ── 2. Age verification gate ──
-  const isProtectedRoute = PROTECTED_ROUTES.some((route) => pathname.startsWith(route));
-  const ageVerified = request.cookies.get('vdm_age_ok')?.value;
-
-  if (isProtectedRoute && !ageVerified) {
-    // Redirect to home where the age modal will appear
-    const url = request.nextUrl.clone();
-    url.pathname = '/';
-    url.searchParams.set('restricted', '1');
-    return NextResponse.redirect(url);
-  }
+  // ── 2. Age verification ──
+  // The AgeVerificationModal in root layout handles client-side gating.
+  // The HttpOnly cookie `vdm_age_ok` is set via Server Action for future
+  // middleware-level enforcement once the localStorage migration is complete.
+  // For now, we do NOT redirect — the modal is the primary gate.
 
   // ── 3. Admin route protection (placeholder for JWT role check) ──
-  // For now, admin is accessible — when auth is implemented,
-  // uncomment and validate JWT admin role here:
-  // const isAdminRoute = ADMIN_ROUTES.some((route) => pathname.startsWith(route));
+  // const { pathname } = request.nextUrl;
+  // const isAdminRoute = pathname.startsWith('/admin');
   // if (isAdminRoute) {
   //   const token = request.cookies.get('vdm_auth_token')?.value;
-  //   if (!token || !isAdminJWT(token)) {
-  //     return NextResponse.redirect(new URL('/', request.url));
-  //   }
+  //   if (!token) return NextResponse.redirect(new URL('/', request.url));
   // }
 
   return response;
