@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { useEffect, useState } from 'react';
 
 export interface CartItem {
   id: number;
@@ -60,6 +61,24 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: 'vdm-cart-storage',
+      skipHydration: true,
     }
   )
 );
+
+/**
+ * Hook to safely rehydrate the cart store on the client.
+ * Prevents the 0→N flash on the cart badge during SSR hydration.
+ * Usage: call once in a top-level client component (e.g., Header).
+ */
+export function useCartHydration() {
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    useCartStore.persist.rehydrate();
+    setHydrated(true);
+  }, []);
+
+  return hydrated;
+}
+

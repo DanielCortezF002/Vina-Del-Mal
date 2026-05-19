@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { ShoppingCart, Search, Menu, X, LayoutDashboard } from 'lucide-react';
-import { useCartStore } from '@/store/useCartStore';
+import { useCartStore, useCartHydration } from '@/store/useCartStore';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SearchBar from '@/components/SearchBar';
@@ -10,14 +10,10 @@ import CartSidebar from '@/components/CartSidebar';
 
 export default function Header() {
   const getTotalItems = useCartStore((state) => state.getTotalItems);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useCartHydration();
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Block scroll when mobile menu open
   useEffect(() => {
