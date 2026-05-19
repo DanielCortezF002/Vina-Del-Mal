@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useCartStore } from '@/store/useCartStore';
 
@@ -177,12 +178,14 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                   </div>
                 </div>
 
-                <button
+                <Link
+                  href="/checkout"
+                  onClick={onClose}
                   className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-vdm-primary text-white font-semibold text-sm tracking-wide hover:bg-vdm-accent transition-all duration-300 hover:shadow-[0_0_20px_rgba(139,0,0,0.35)]"
                 >
                   Ir al Checkout
                   <ArrowRight size={18} />
-                </button>
+                </Link>
 
                 <button
                   onClick={clearCart}
