@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAgeVerification } from '@/hooks/useAgeVerification';
+import { verifyAge } from '@/app/actions/age-verification';
 
 // ── Variantes de animación separadas para claridad ────────────────────────────
 const overlayVariants = {
@@ -118,7 +119,7 @@ export default function AgeVerificationModal() {
                 <button
                   id="age-verify-btn"
                   type="button"
-                  onClick={verify}
+                  onClick={() => { verifyAge(); verify(); }}
                   className="flex-1 px-6 py-3 rounded-lg bg-vdm-primary text-white text-sm font-semibold
                              transition-all duration-200
                              hover:bg-vdm-accent hover:shadow-lg hover:shadow-vdm-primary/30
