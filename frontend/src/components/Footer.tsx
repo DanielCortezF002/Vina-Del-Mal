@@ -5,12 +5,12 @@ export default function Footer() {
   return (
     <footer className="bg-black border-t border-vdm-primary/20 pt-16 pb-8">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          {/* Brand & Info */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          {/* Brand */}
           <div>
             <h3 className="font-heading text-2xl text-vdm-secondary mb-4">Viña del Mal</h3>
             <p className="text-vdm-text-muted text-sm leading-relaxed mb-6">
-              Plataforma SaaS Multi-tenant exclusiva para botillerías independientes de Chile. 
+              Plataforma SaaS multi-tenant para botillerías independientes de Chile.
               Selección premium para gustos exigentes.
             </p>
             <div className="flex gap-4">
@@ -23,22 +23,49 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* Quick Links */}
+          <div>
+            <h4 className="font-heading text-lg text-white mb-4">Navegación</h4>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link href="/catalogo" className="text-vdm-text-muted hover:text-vdm-secondary transition-colors">
+                  🍷 Catálogo
+                </Link>
+              </li>
+              <li>
+                <Link href="/cocteles" className="text-vdm-text-muted hover:text-vdm-secondary transition-colors">
+                  🍹 Cócteles
+                </Link>
+              </li>
+              <li>
+                <Link href="/checkout" className="text-vdm-text-muted hover:text-vdm-secondary transition-colors">
+                  🛒 Checkout
+                </Link>
+              </li>
+              <li className="pt-2 border-t border-vdm-surface">
+                <Link href="/admin" className="text-vdm-text-muted hover:text-vdm-secondary transition-colors flex items-center gap-1">
+                  ⚙️ Panel Admin
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Horarios */}
           <div>
             <h4 className="font-heading text-lg text-white mb-4 flex items-center gap-2">
               <Clock size={18} className="text-vdm-primary" />
-              Horarios de Atención
+              Horarios
             </h4>
             <ul className="space-y-3 text-sm text-vdm-text-muted">
               <li className="flex justify-between border-b border-vdm-surface pb-2">
-                <span>Lunes a Miércoles</span>
-                <span>10:00 - 00:00</span>
+                <span>Lun — Mié</span>
+                <span>10:00 – 00:00</span>
               </li>
               <li className="flex justify-between border-b border-vdm-surface pb-2">
-                <span>Jueves a Sábado</span>
-                <span>10:00 - 02:00</span>
+                <span>Jue — Sáb</span>
+                <span>10:00 – 02:00</span>
               </li>
-              <li className="flex justify-between border-b border-vdm-surface pb-2 text-vdm-primary font-medium">
+              <li className="flex justify-between pb-2 text-vdm-primary font-medium">
                 <span>Domingo</span>
                 <span>CERRADO</span>
               </li>
@@ -75,3 +102,4 @@ export default function Footer() {
     </footer>
   );
 }
+

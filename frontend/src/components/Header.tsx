@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingCart, Search, Menu, X } from 'lucide-react';
+import { ShoppingCart, Search, Menu, X, LayoutDashboard } from 'lucide-react';
 import { useCartStore } from '@/store/useCartStore';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -39,6 +39,9 @@ export default function Header() {
             <Link href="/catalogo" className="hover:text-vdm-primary transition-colors">
               Catálogo
             </Link>
+            <Link href="/cocteles" className="hover:text-vdm-primary transition-colors">
+              Cócteles
+            </Link>
             <Link href="/promociones" className="hover:text-vdm-primary transition-colors">
               Promociones
             </Link>
@@ -72,6 +75,16 @@ export default function Header() {
                 </span>
               )}
             </button>
+
+            {/* Admin shortcut — desktop only */}
+            <Link
+              href="/admin"
+              className="hidden md:flex p-2 rounded-lg hover:bg-white/10 hover:text-vdm-secondary transition-colors"
+              aria-label="Panel de administración"
+              title="Admin"
+            >
+              <LayoutDashboard size={20} />
+            </Link>
 
             {/* Mobile menu toggle */}
             <button
@@ -131,8 +144,10 @@ export default function Header() {
             <nav className="container mx-auto px-4 py-6 flex flex-col gap-5 text-base font-medium uppercase tracking-wider">
               {[
                 { href: '/catalogo', label: 'Catálogo' },
+                { href: '/cocteles', label: 'Cócteles' },
                 { href: '/promociones', label: 'Promociones' },
                 { href: '/nosotros', label: 'Nosotros' },
+                { href: '/admin', label: '⚙ Admin' },
               ].map((item) => (
                 <Link
                   key={item.href}
