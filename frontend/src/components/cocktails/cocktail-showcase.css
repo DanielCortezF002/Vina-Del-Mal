@@ -1,0 +1,386 @@
+/* ═══════════════════════════════════════════════════════
+   Cocktail Showcase — Parallax Coverflow Carousel
+   Adapted from CodePen fish carousel for Viña del Mal
+   ═══════════════════════════════════════════════════════ */
+
+.cocktailShowcase {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  position: relative;
+}
+
+.cocktailShowcase .sectionWrapper {
+  width: 100%;
+  height: 100%;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+/* ── Swiper Container ────────────────────────────────── */
+
+.cocktailShowcase .swiper {
+  width: 100%;
+  height: 100%;
+  min-height: 85vh;
+  padding: 50px 20px;
+  overflow: visible;
+}
+
+.cocktailShowcase .parallax-bg {
+  position: absolute;
+  right: -5%;
+  top: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=2000&auto=format&fit=crop");
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  filter: brightness(0.3) saturate(1.2);
+}
+
+.cocktailShowcase .parallax-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 20%, rgba(15,15,15,0.85) 80%);
+}
+
+.cocktailShowcase .swiper .swiper-wrapper {
+  align-items: center;
+}
+
+/* ── Slide Card ──────────────────────────────────────── */
+
+.cocktailShowcase .swiper-slide {
+  position: relative;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: rgba(60, 30, 15, 0.6);
+  border-radius: 12px;
+  padding: 8px;
+  cursor: grab;
+  user-select: none;
+  text-wrap: pretty;
+  backdrop-filter: blur(8px);
+  transition: all 0.4s ease;
+}
+
+/* Corner decorations */
+.cocktailShowcase .swiper-slide::before {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  border-bottom: 1px dashed rgba(212, 175, 55, 0.5);
+  border-right: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 0 0 12px 0;
+  content: "";
+  transition: all 0.4s ease;
+  pointer-events: none;
+}
+
+.cocktailShowcase .swiper-slide::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  border-top: 1px solid rgba(212, 175, 55, 0.5);
+  border-left: 1px dashed rgba(212, 175, 55, 0.5);
+  border-radius: 12px 0 0 0;
+  content: "";
+  transition: all 0.4s ease;
+  pointer-events: none;
+}
+
+/* Hover: warm cocktail gradient instead of rainbow */
+.cocktailShowcase .swiper-slide:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(139, 0, 0, 0.55),
+    rgba(180, 40, 10, 0.55),
+    rgba(200, 100, 20, 0.55),
+    rgba(212, 175, 55, 0.55),
+    rgba(180, 140, 50, 0.55),
+    rgba(139, 0, 0, 0.55)
+  );
+}
+
+.cocktailShowcase .swiper-slide:hover::before,
+.cocktailShowcase .swiper-slide:hover::after {
+  width: 140px;
+  height: 140px;
+}
+
+/* ── Card Inner ──────────────────────────────────────── */
+
+.cocktailShowcase .cardPopout {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  backdrop-filter: blur(4px);
+}
+
+/* ── Image ───────────────────────────────────────────── */
+
+.cocktailShowcase .cardPopout img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2/1;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+/* ── Spirit-specific fonts ───────────────────────────── */
+
+.cocktailShowcase .cocktailTitle {
+  font-size: 180%;
+  line-height: 110%;
+  margin: 0 0 6px 0;
+  color: white;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+
+/* Classic/Sophisticated: Whisky, Gin */
+.cocktailShowcase .cocktailTitle[data-spirit="Whisky"],
+.cocktailShowcase .cocktailTitle[data-spirit="Gin"] {
+  font-family: var(--font-cinzel), 'Cinzel', serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 160%;
+}
+
+/* Tropical/Relaxed: Ron, Pisco */
+.cocktailShowcase .cocktailTitle[data-spirit="Ron"],
+.cocktailShowcase .cocktailTitle[data-spirit="Pisco"] {
+  font-family: var(--font-pacifico), 'Pacifico', cursive;
+  font-size: 200%;
+  letter-spacing: 0.02em;
+}
+
+/* Light/Refreshing: Vodka, Aperol */
+.cocktailShowcase .cocktailTitle[data-spirit="Vodka"],
+.cocktailShowcase .cocktailTitle[data-spirit="Aperol"] {
+  font-family: var(--font-dancing), 'Dancing Script', cursive;
+  font-size: 220%;
+  font-weight: 700;
+}
+
+/* Wine/Champagne */
+.cocktailShowcase .cocktailTitle[data-spirit="Vino"] {
+  font-family: var(--font-playfair), 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 190%;
+}
+
+/* Tequila — bold and festive */
+.cocktailShowcase .cocktailTitle[data-spirit="Tequila"] {
+  font-family: var(--font-cinzel), 'Cinzel', serif;
+  font-weight: 900;
+  font-size: 170%;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ── Subtitle ────────────────────────────────────────── */
+
+.cocktailShowcase .cocktailSubtitle {
+  font-size: 95%;
+  line-height: 120%;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: #bbb;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cocktailShowcase .cocktailSubtitle .diffBadge {
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 75%;
+  font-style: normal;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cocktailShowcase .diffBadge.easy {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.cocktailShowcase .diffBadge.medium {
+  background: rgba(234, 179, 8, 0.2);
+  color: #facc15;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.cocktailShowcase .diffBadge.hard {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* ── Description ─────────────────────────────────────── */
+
+.cocktailShowcase .cocktailDesc {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 0 16px 0;
+  padding-left: 16px;
+  border-left: 2px solid rgba(212, 175, 55, 0.5);
+}
+
+.cocktailShowcase .cocktailDesc p {
+  color: #999;
+  margin: 0;
+  font-size: 90%;
+  line-height: 155%;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Tags ─────────────────────────────────────────────── */
+
+.cocktailShowcase .tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.cocktailShowcase .tagRow span {
+  font-size: 70%;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(139, 0, 0, 0.25);
+  color: rgba(212, 175, 55, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  text-transform: capitalize;
+}
+
+/* ── CTA Button ──────────────────────────────────────── */
+
+.cocktailShowcase .ctaBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: rgba(0,0,0,0.9);
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.5s ease !important;
+  font-size: 90%;
+  font-weight: 600;
+  margin-top: auto;
+  border: 1px solid rgba(139, 0, 0, 0.4);
+}
+
+.cocktailShowcase .ctaBtn:hover {
+  color: white;
+  border-color: rgba(212, 175, 55, 0.6);
+}
+
+.cocktailShowcase .ctaBtn::after {
+  position: absolute;
+  right: 100%;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #8B0000, #D4AF37);
+  content: "";
+  z-index: -1;
+  transition: all 0.5s ease;
+}
+
+.cocktailShowcase .ctaBtn:hover::after {
+  right: 0;
+}
+
+.cocktailShowcase .ctaBtn svg {
+  width: 20px;
+  height: auto;
+  fill: white;
+  margin-left: 6px;
+  transition: all 0.5s ease;
+}
+
+.cocktailShowcase .ctaBtn:hover svg {
+  margin-left: 12px;
+}
+
+/* ── Scrollbar ───────────────────────────────────────── */
+
+.cocktailShowcase .swiper-scrollbar {
+  --swiper-scrollbar-bottom: 8px;
+  --swiper-scrollbar-size: 6px;
+  --swiper-scrollbar-bg-color: rgba(255,255,255,0.08);
+  --swiper-scrollbar-drag-bg-color: rgba(212, 175, 55, 0.5);
+  border-radius: 3px;
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+
+@media (min-width: 2000px) {
+  .cocktailShowcase .swiper-slide {
+    padding: 16px;
+  }
+}
+
+@media (max-height: 550px) {
+  .cocktailShowcase .cocktailDesc p {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+}
+
+@media (max-height: 460px) {
+  .cocktailShowcase .cocktailDesc p {
+    display: none;
+  }
+  .cocktailShowcase .cocktailSubtitle {
+    margin: 0;
+  }
+}
+
+@media (max-width: 750px) {
+  .cocktailShowcase .parallax-bg {
+    width: 320%;
+  }
+  .cocktailShowcase .cocktailTitle {
+    font-size: 150% !important;
+  }
+}

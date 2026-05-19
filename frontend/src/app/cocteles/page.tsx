@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CocktailCard from '@/components/cocktails/CocktailCard';
+import CocktailShowcase from '@/components/cocktails/CocktailShowcase';
 import { COCKTAILS } from '@/data/cocktails';
 import { BASE_SPIRITS, DIFFICULTY_COLORS } from '@/types/cocktail';
 import type { Cocktail } from '@/types/cocktail';
@@ -30,17 +31,21 @@ export default function CoctelesCatalog() {
 
   return (
     <div className="min-h-screen bg-vdm-dark">
-      {/* Header */}
-      <div className="border-b border-white/5 bg-black/30">
-        <div className="container mx-auto px-4 py-12">
-          <h1 className="font-heading text-4xl text-white mb-2">Cócteles</h1>
-          <p className="text-vdm-text-muted text-sm">
-            {COCKTAILS.length} recetas clásicas para preparar en casa
-          </p>
-        </div>
+      {/* ═══ Hero Showcase — Parallax Coverflow Carousel ═══ */}
+      <CocktailShowcase />
+
+      {/* ═══ Divider ═══ */}
+      <div className="relative py-16 flex flex-col items-center">
+        <div className="w-16 h-1 rounded-full bg-gradient-to-r from-vdm-primary to-vdm-secondary mb-6" />
+        <h2 className="font-heading text-3xl md:text-4xl text-white mb-2 text-center">
+          Todas las Recetas
+        </h2>
+        <p className="text-vdm-text-muted text-sm text-center max-w-md">
+          {COCKTAILS.length} recetas clásicas para preparar en casa. Filtra por licor, dificultad o estilo.
+        </p>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 pb-16">
         {/* Filters */}
         <div className="space-y-4 mb-8">
           {/* Spirit filter */}
@@ -133,3 +138,4 @@ export default function CoctelesCatalog() {
     </div>
   );
 }
+
