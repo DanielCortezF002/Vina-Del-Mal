@@ -27,13 +27,17 @@ export function middleware(request: NextRequest) {
   // middleware-level enforcement once the localStorage migration is complete.
   // For now, we do NOT redirect — the modal is the primary gate.
 
-  // ── 3. Admin route protection (placeholder for JWT role check) ──
-  // const { pathname } = request.nextUrl;
-  // const isAdminRoute = pathname.startsWith('/admin');
-  // if (isAdminRoute) {
-  //   const token = request.cookies.get('vdm_auth_token')?.value;
-  //   if (!token) return NextResponse.redirect(new URL('/', request.url));
-  // }
+  // ── 3. Admin route protection ──
+  const { pathname } = request.nextUrl;
+  const isAdminRoute = pathname.startsWith('/admin');
+  const isLoginRoute = pathname === '/admin/login';
+
+  if (isAdminRoute && !isLoginRoute) {
+    const token = request.cookies.get('vdm_auth_token')?.value;
+    if (!token) {
+      return NextResponse.redirect(new URL('/admin/login', request.url));
+    }
+  }
 
   return response;
 }
